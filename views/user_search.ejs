@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ("../views/partials/meta.ejs") %>
+    </head>
+    <body>
+        <%- include ("../views/partials/header.ejs") %>
+        <main>
+            <%- include ("../views/partials/nav_bar.ejs") %>
+            <form action="/users" method="get" class="well">
+                <label for="name">Name: </label>
+                <!--<input id="name" type="text" name="name" required>-->
+                <input id="name" list="names" name="name" autocomplete="off" required>
+                <datalist id="names">
+                    <% users.forEach(user => { %>
+                        <option value="<%= user.name %>">
+                    <% }) %>
+                </datalist>
+                <br>
+                <button type="submit" class="center half">Search</button>
+                <br>
+            </form>
+            <% if (users) { %>
+                <h2>User List</h2>
+                <ul>
+                   <% users.forEach(user => { %>
+                        <li>
+                            <a href="/users/<%= user.name %>"><%= user.name %></a>
+                        </li>
+                   <% }) %>
+                </ul>
+            <% } %>
+        </main>
+    </body>
+</html>

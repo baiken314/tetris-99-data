@@ -1,0 +1,34 @@
+<div class="game-table table-container">
+    <table style="white-space: nowrap;">
+        <tr>
+            <!-- if on userpage, user is not populated -->
+            <% if (games[0].user.name) { %>
+                <th>Name</th>
+            <% } %>
+            <th>Invictus</th>
+            <th>Position</th>
+            <th>KOs</th>
+            <th>Badges</th>
+            <th>Lines Sent</th>
+            <th>Line Clears</th>
+            <th>T-Spins</th>
+            <th>Max Combo</th>
+        </tr>
+        <% games.forEach(game => { %>
+            <tr>
+                <!-- if on userpage, user is not populated -->
+                <% if (game.user.name) { %>
+                    <td><%= game.user.name %></td>
+                <% } %>
+                <td><%= (game.invictus) ? "true" : "false" %></td>
+                <td><%= game.position %></td>
+                <td><%= game.kos %></td>
+                <td><%= game.badges %></td>
+                <td><%= game.linesSent %></td>
+                <td><%= `${game.lines.single}, ${game.lines.double}, ${game.lines.triple}, ${game.lines.tetris}` %></td>
+                <td><%= `${game.tSpins.single}, ${game.tSpins.double}, ${game.tSpins.triple}` %></td>
+                <td><%= game.maxCombo %></td>
+            </tr>
+        <% }) %> 
+    </table>
+</div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ("../views/partials/meta.ejs") %>
+    </head>
+    <body>
+        <%- include ("../views/partials/header.ejs") %>
+        <main>
+            <%- include ("../views/partials/nav_bar.ejs") %>
+            <% if (games) { %>
+                <%- include ("../views/partials/game_table.ejs", { games: games }) %>
+            <% } %>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ("../views/partials/meta.ejs") %>
+    </head>
+    <body>
+        <%- include ("../views/partials/header.ejs") %>
+        <main>
+            <%- include ("../views/partials/nav_bar.ejs") %>
+            <% if (user) { %>
+                <% 
+                const wins = user.games.reduce((acc, o) => acc += o.position == 1 ? 1 : 0, 0)
+                const winRate = (wins / user.games.length * 100).toFixed(1) + "%" 
+                %>
+                <h1><%= user.name %></h1>
+                <h2>Statistics</h2>
+                <p class="gray">Games played: <%= user.games.length %></p>
+                <!-- game table if games exist -->
+                <% if (user.games.length) { %>
+                    <p class="green">Wins: <%= wins %></p>
+                    <p class="blue">Win rate: <%= winRate %></p>
+                    <hr>
+                    <div class="flex-container flex-collapse">
+                        <div class="flex-item flex-equal">
+                            <h3 class="green">Win averages</h3>
+                            <ul>
+                                <li>KOs: <%= (user.games.reduce((acc, o) => acc += o.position == 1 ? o.kos : 0, 0) / wins).toFixed(1) %></li>
+                                <li>Lines sent: <%= (user.games.reduce((acc, o) => acc += o.position == 1 ? o.linesSent : 0, 0) / wins).toFixed(1) %></li>
+                                <li>Tetrises: <%= (user.games.reduce((acc, o) => acc += o.position == 1 ? o.lines.tetris : 0, 0) / wins).toFixed(1) %></li>
+                                <li>Double t-spins: <%= (user.games.reduce((acc, o) => acc += o.position == 1 ? o.tSpins.double : 0, 0) / wins).toFixed(1) %></li>
+                            </ul>
+                        </div>
+                        <div class="flex-item flex-equal">
+                            <h3 class="yellow">Top 10 averages</h3>
+                            <ul>
+                                <% const top10s = user.games.reduce((acc, o) => acc += o.position <= 10 ? 1 : 0, 0) %>
+                                <li>KOs: <%= (user.games.reduce((acc, o) => acc += o.position <= 10 ? o.kos : 0, 0) / top10s).toFixed(1) %></li>
+                                <li>Lines sent: <%= (user.games.reduce((acc, o) => acc += o.position <= 10 ? o.linesSent : 0, 0) / top10s).toFixed(1) %></li>
+                                <li>Tetrises: <%= (user.games.reduce((acc, o) => acc += o.position <= 10 ? o.lines.tetris : 0, 0) / top10s).toFixed(1) %></li>
+                                <li>Double t-spins: <%= (user.games.reduce((acc, o) => acc += o.position <= 10 ? o.tSpins.double : 0, 0) / top10s).toFixed(1) %></li>
+                            </ul>
+                        </div>
+                        <div class="flex-item flex-equal">
+                            <h3 class="red">Total Averages</h3>
+                            <ul>
+                                <li>KOs: <%= (user.games.reduce((acc, o) => acc += o.kos, 0) / user.games.length).toFixed(1) %></li>
+                                <li>Lines sent: <%= (user.games.reduce((acc, o) => acc += o.linesSent, 0) / user.games.length).toFixed(1) %></li>
+                                <li>Tetrises: <%= (user.games.reduce((acc, o) => acc += o.lines.tetris, 0) / user.games.length).toFixed(1) %></li>
+                                <li>Double t-spins: <%= (user.games.reduce((acc, o) => acc += o.tSpins.double, 0) / user.games.length).toFixed(1) %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <p>Line clears and t-spins are listed as singles, doubles, triples, and then for lines, tetrises.</p>
+                    <%- include ("../views/partials/game_table.ejs", {games: user.games}) %>
+                <% } %>
+            <% } else { %>
+                <p class="red">No user exists.</p>
+            <% } %>
+        </main>
+    </body>
+</html>

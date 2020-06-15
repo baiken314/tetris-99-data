@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ("../views/partials/meta.ejs") %>
+    </head>
+    <body>
+        <%- include ("../views/partials/header.ejs") %>
+        <main>
+            <%- include ("../views/partials/nav_bar.ejs") %>
+            <form action="/games/create" method="post" class="well">
+                <h1>Enter Game</h1>
+                <% if (message) { %>
+                    <p class="red"><%= message %></p>
+                <% } %>
+                <label for="name">Name: </label>
+                <input id="name" type="text" name="name" required>
+                <label for="password">Password: </label>
+                <input id="password" type="password" name="password" required>
+                <label for="invictus">Invictus: </label>
+                <input id="invictus" type="checkbox" name="invictus">
+                <label for="position">Position: </label>
+                <input id="position" type="number" name="position" min="1" max="99" required>                
+                <label for="kos">KOs: </label>
+                <input id="kos" type="number" name="kos" min="0" max="98" required>                
+                <label for="badges">Badges: </label>
+                <input id="badges" type="number" name="badges" min="0" max="4" required>                
+                <h2>Lines</h2>
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <label for="lines-single">Singles: </label>
+                        <input id="lines-single" type="number" 
+                        name="linesSingle" min="0" required>
+                    </div>
+                    <div class="flex-item">
+                        <label for="lines-double">Doubles: </label>
+                        <input id="lines-double" type="number" name="linesDouble" min="0" required>
+                    </div>
+                    <div class="flex-item">
+                        <label for="lines-triple">Triples: </label>
+                        <input id="lines-triple" type="number" name="linesTriple" min="0" required>
+                    </div>
+                    <div class="flex-item">
+                        <label for="lines-tetris">Tetris: </label>
+                        <input id="lines-tetris" type="number" name="linesTetris" min="0" required>
+                    </div>
+                </div>                
+                <h2>T-Spins</h2>
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <label for="t-spins-single">Singles: </label>
+                        <input id="t-spins-single" type="number" name="tSpinsSingle" min="0" required>          
+                    </div>
+                    <div class="flex-item">
+                        <label for="t-spins-double">Doubles: </label>
+                        <input id="t-spins-double" type="number" name="tSpinsDouble" min="0" required>          
+                    </div>
+                    <div class="flex-item">      
+                        <label for="t-spins-triple">Triples: </label>
+                        <input id="t-spins-triple" type="number" name="tSpinsTriple" min="0" required>
+                    </div>
+                </div>      
+                <br>
+                <label for="lines-sent">Lines sent: </label>
+                <input id="lines-sent" type="number" name="linesSent" min="0" required>
+                <label for="max-combo">Max combo: </label>
+                <input id="max-combo" type="number" name="maxCombo" min="0" required>
+                <label for="back-to-backs">Back-to-backs: </label>
+                <input id="back-to-backs" type="number" name="backToBacks" min="0" required>
+                <label for="all-clears">All clears: </label>
+                <input id="all-clears" type="number" name="allClears" min="0" required>
+                <br>
+                <button type="submit" class="half center down">Submit</button>
+                <br>
+            </form>
+        </main>
+    </body>
+</html>
